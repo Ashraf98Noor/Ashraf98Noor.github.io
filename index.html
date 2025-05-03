@@ -256,8 +256,8 @@
       <img class="cert-slide" src="Cert4.png" alt="Certification 4"/>
       <img class="cert-slide" src="Cert5.png" alt="Certification 5"/>
       <img class="cert-slide" src="Cert6.png" alt="Certification 6"/>
-      <span class="cert-prev" onclick="plusCerts(-1)">&#10094;</span>
-      <span class="cert-next" onclick="plusCerts(1)">&#10095;</span>
+      <span class="cert-prev" onclick="plusCertifications(-1)">&#10094;</span>
+      <span class="cert-next" onclick="plusCertifications(1)">&#10095;</span>
     </div>
   </section>
 
@@ -363,15 +363,15 @@
 
     // Certifications slideshow
     let certIndex = 1;
-    function showCerts(n) {
+    function showCertifications(n) {
       const slides = document.getElementsByClassName("cert-slide");
       if (n > slides.length) certIndex = 1;
       if (n < 1) certIndex = slides.length;
       for (let s of slides) s.style.display = "none";
       slides[certIndex - 1].style.display = "block";
     }
-    function plusCerts(n) { showCerts(certIndex += n); }
-    showCerts(certIndex);
+    function plusCertifications(n) { showCertifications(certIndex += n); }
+    showCertifications(certIndex);
 
     // Dashboards slideshow
     let dashIndex = 1;
