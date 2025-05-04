@@ -55,21 +55,40 @@
 
     /* — Navigation — */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       background: var(--nav-bg);
       border-bottom: 1px solid var(--nav-border);
       padding: 1rem 2rem;
-      display: flex; justify-content: center; gap: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
       z-index: 100;
     }
-    .nav-btn {
+  /* ensures buttons don’t shrink on mobile */
+  .nav-btn {
+      flex: 0 0 auto;
       padding: 0.5rem 1rem;
       background: var(--btn-bg);
       color: var(--btn-text);
-      border: none; border-radius: 4px;
-      font-weight: 700; cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
     }
-    .nav-btn:hover { background: darken(var(--btn-bg),10%); }
+    .nav-btn:hover {
+      background: #295bb2;
+    } 
+
+  /* — Mobile: allow horizontal scroll and left-align — */
+  @media (max-width: 600px) {
+    nav {
+      justify-content: flex-start;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.5rem;
+      }
+   }
 
     /* — Section Base — */
     section {
