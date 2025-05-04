@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ashraf Un Noor | Portfolio v2.1</title>
+  <title>Ashraf Un Noor | Portfolio v2.2</title>
 
   <!-- Fonts & Icons -->
   <link
@@ -16,37 +16,60 @@
   />
 
   <style>
+    /* — Theme Variables — */
+    :root {
+      --bg: #fff;
+      --text: #000;
+      --primary: #3170DE;
+      --secondary: #AED4FF;
+      --nav-bg: #fff;
+      --nav-border: #ddd;
+      --btn-bg: #3170DE;
+      --btn-text: #fff;
+    }
+    [data-theme="dark"] {
+      --bg: #000;
+      --text: #fff;
+      --primary: #FFA940;
+      --secondary: #e4ac5d;
+      --nav-bg: #111;
+      --nav-border: #333;
+      --btn-bg: #333;
+      --btn-text: #fff;
+    }
+
     /* — Reset & Base — */
     * { box-sizing: border-box; margin: 0; padding: 0 }
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #fff;
-      color: #000;
+      background-color: var(--bg);
+      color: var(--text);
       scroll-behavior: smooth;
       line-height: 1.6;
     }
-    a { color: #3170DE; text-decoration: none; }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
     a:hover { text-decoration: underline; }
 
     /* — Navigation — */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      background: #fff;
-      border-bottom: 1px solid #ddd;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
       padding: 1rem 2rem;
       display: flex; justify-content: center; gap: 1rem;
       z-index: 100;
     }
     .nav-btn {
       padding: 0.5rem 1rem;
-      background: #3170DE;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-weight: 700;
-      cursor: pointer;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none; border-radius: 4px;
+      font-weight: 700; cursor: pointer;
     }
-    .nav-btn:hover { background: #1f4fa5; }
+    .nav-btn:hover { background: darken(var(--btn-bg),10%); }
 
     /* — Section Base — */
     section {
@@ -63,17 +86,16 @@
     }
     #about { padding-top: 10rem; }
 
-    /* — Headings (Roboto Light) — */
+    /* — Headings — */
     h1, h2, h3 {
-      font-family: 'Roboto', sans-serif;
       font-weight: 300;
-      color: #3170DE;
+      color: var(--primary);
       margin-bottom: 0.5rem;
     }
     h1 { font-size: 3rem; }
     h2 {
       font-size: 2rem;
-      border-bottom: 3px solid #AED4FF;
+      border-bottom: 3px solid var(--secondary);
       display: inline-block;
       margin-bottom: 1rem;
     }
@@ -91,18 +113,25 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 1.5rem;
-      border: 3px solid #3170DE;
+      border: 3px solid var(--primary);
     }
     .about-right ul { list-style: none; margin-top: 1rem; }
     .about-right li { margin-bottom: 0.5rem; font-size: 1rem; }
     .about-right i { margin-right: 0.5rem; }
 
     /* — Certifications — */
-    #certifications { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;padding-top: 2rem; }
+    #certifications {
+      display: flex; flex-wrap: wrap;
+      gap: 2rem; align-items: flex-start;
+      padding-top: 4rem; /* tightened per request */
+    }
     .cert-list {
       flex: 1; min-width: 250px;
     }
-    .cert-list ul { list-style: disc inside; margin-top: 1rem; }
+    .cert-list ul {
+      list-style: disc inside;
+      margin-top: 1rem;
+    }
     .slideshow-container {
       flex: 1; min-width: 300px;
       position: relative;
@@ -150,34 +179,29 @@
     .dash-next { right: 0.5rem; }
 
     /* — Skills — */
-    #skills { padding-top: 2rem; margin-bottom: 8rem; }
-    .skills-flex {
-      display: flex; flex-wrap: wrap; gap: 1rem;
+    #skills {
+      padding-top: 2rem;
+      margin-bottom: 8rem; /* extra breathing room */
     }
     .skills-flex {
-  gap: 0.5rem;        /* was 1rem, now half */
-}
-
-/* make each card a little more compact */
-.skill-cat {
-  padding: 0.25rem;   /* was 0.5rem, now a quarter */
-}
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
     .skill-cat {
       flex: 1; min-width: 150px;
-      padding: 1rem; position: relative;
-      /* no border */
+      padding: 0.25rem; position: relative;
     }
     .skill-cat h3 {
-      font-style: italic;
-      margin-bottom: 0.5rem;
+      font-style: italic; margin-bottom: 0.5rem;
     }
     .skill-list {
       display: none;
       margin-top: 0.5rem;
-      list-style: disc inside;
+      list-style: disc outside;
+      padding-left: 1rem;
+      line-height: 1.4;
     }
     .skill-list li {
-  white-space: nowrap;       /* never break the text to the next line */
+      white-space: nowrap;       /* never break the text to the next line */
     }
     .skill-cat:hover .skill-list {
       display: block;
@@ -199,6 +223,7 @@
 
   <!-- Navigation -->
   <nav>
+    <button id="theme-toggle" class="nav-btn" aria-label="Toggle theme">🌙</button>
     <button class="nav-btn" onclick="location.href='#about'">About</button>
     <button class="nav-btn" onclick="location.href='#findme'">Find Me On</button>
     <button class="nav-btn" onclick="location.href='#certifications'">Certifications</button>
@@ -387,6 +412,22 @@
     }
     function plusDash(n) { showDash(dashIndex += n); }
     showDash(dashIndex);
+
+    // Theme toggle
+    const toggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    const defaultTheme = saved || 'light';
+
+    root.setAttribute('data-theme', defaultTheme);
+    toggle.textContent = defaultTheme === 'dark' ? '☀️' : '🌙';
+
+    toggle.addEventListener('click', () => {
+      const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
   </script>
 </body>
 </html>
