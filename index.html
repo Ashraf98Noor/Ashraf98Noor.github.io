@@ -206,24 +206,31 @@
       display: flex; flex-wrap: wrap; gap: 0.5rem;
     }
     .skill-cat {
-      flex: 1; min-width: 150px;
-      padding: 0.25rem; position: relative;
+    flex: 1;
+    min-width: 150px;
+    padding: 0.25rem;
+    position: relative;
     }
     .skill-cat h3 {
-      font-style: italic; margin-bottom: 0.5rem;
+    font-style: italic; margin-bottom: 0.5rem;
     }
     .skill-list {
-      display: none;
-      margin-top: 0.5rem;
-      list-style: disc outside;
-      padding-left: 1rem;
-      line-height: 1.4;
+    display: none;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background: white; 
+    z-index: 10;
+    margin-top: 0.25rem;
+    list-style: disc outside;
+    padding-left: 1rem;
+    line-height: 1.4;
     }
     .skill-list li {
-      white-space: nowrap;       /* never break the text to the next line */
+        white-space: nowrap;       
     }
     .skill-cat:hover .skill-list {
-      display: block;
+    display: block;
     }
 
     /* — Responsive — */
@@ -290,10 +297,10 @@
       <ul>
         <li>Google Data Analytics Professional Certificate</li>
         <li>Google Business Intelligence Analyst Professional Certificate</li>
+        li>Google Advanced Data Analytics Professional Certificate</li>
         <li>Google Agile Essentials Certificate</li>
-        <li>Google AI Essentials Certificate</li>
+        <li>Google AI Essentials Specialization</li>
         <li>Google Prompting Essentials Certificate</li>
-        <li>Google Advanced Data Analytics Professional Certificate (Ongoing)</li>
         <li>Asana Workflow Specialist Certificate</li>
       </ul>
     </div>
@@ -315,7 +322,7 @@
 
     <div class="project-flex">
       <div class="project-desc">
-        <h3>Google Data Analytics Capstone</h3>
+        <h3>Cyclistic Bike Share Members Analysis Google Data Analytics Capstone</h3>
         <p>
           Developed and executed complex SQL queries and percentile calculations to extract, transform, and analyze large datasets, implemented user sizing and sampling through various statistical techniques in BigQuery, visualized insights in Tableau, and delivered strategic recommendations, focusing on customer journey analysis and insights to drive loyalty, increase engagement rates and to increase annual memberships. 
         </p>
@@ -357,6 +364,48 @@
         </p>
         <p>
           <a href="https://github.com/Ashraf98Noor/Synthetic-Data-Generator" target="_blank">
+            View on GitHub &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+
+     <div class="project-flex">
+      <div class="project-desc">
+        <h3>Salifort Motors Employee Retention Predictor - Google Advanced Data Analytics Capstone</h3>
+        <p>
+          Developed and deployed a logistic regression model to predict employee attrition using real-world HR data (accuracy: 82%, weighted F1: 0.80). Performed comprehensive EDA, feature engineering, and model evaluation to identify actionable drivers of turnover. Presented key findings and recommendations to stakeholders using clear visuals and executive summaries. 
+        </p>
+        <p>
+          <a href="https://github.com/Ashraf98Noor/Salifort-Motors-Employee-Retention-Predictor" target="_blank">
+            View on GitHub &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="project-flex">
+      <div class="project-desc">
+        <h3>Invistico Airlines Passenger Satisfaction Prediction</h3>
+        <p>
+          End-to-end machine learning project using real airline passenger data to forecast customer satisfaction. Applied logistic regression, decision tree, random forest, and XGBoost models; Random Forest achieved highest accuracy (94.7%). Delivered interpretable analytics, visualizations, and recommendations to support data-driven service improvements. 
+        </p>
+        <p>
+          <a href="https://github.com/Ashraf98Noor/Invistico-Airlines-Machine-Learning-Models" target="_blank">
+            View on GitHub &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="project-flex">
+      <div class="project-desc">
+        <h3>Waze User Churn Prediction Model</h3>
+        <p>
+          Built and analyzed a classification model on Waze app user data to predict monthly churn risk. Performed in-depth data exploration and visualization, engineered key features, and provided business recommendations to improve user retention through data-driven insights. 
+        </p>
+        <p>
+          <a href="https://github.com/Ashraf98Noor/Waze-User-Churn-Prediction" target="_blank">
             View on GitHub &rarr;
           </a>
         </p>
