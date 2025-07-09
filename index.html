@@ -246,7 +246,7 @@
   </style>
 </head>
 <body>
-
+  <canvas id="animated-bg"></canvas>
   <!-- Navigation -->
   <nav>
     <button id="theme-toggle" class="nav-btn" aria-label="Toggle theme">🌙</button>
@@ -534,7 +534,7 @@
       toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
      // Animated background: floating data points and lines
-    (function() {
+     (function() {
       const canvas = document.getElementById('animated-bg');
       if (!canvas) return;
       let ctx = canvas.getContext('2d');
