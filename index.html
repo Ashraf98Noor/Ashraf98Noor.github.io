@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ashraf Un Noor | Portfolio v3.0</title>
+  <title>Ashraf Un Noor | Portfolio v3.1</title>
 
   <!-- Fonts & Icons -->
   <link
@@ -533,6 +533,117 @@
       localStorage.setItem('theme', newTheme);
       toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
+     // Animated background: floating data points and lines
+    (function() {
+      const canvas = document.getElementById('animated-bg');
+      if (!canvas) return;
+      let ctx = canvas.getContext('2d');
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = window.devicePixelRatio || 1;
+      let points = [];
+      const POINTS = 48;
+      const MAX_DIST = 140;
+      let theme = root.getAttribute('data-theme') || 'light';
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.scale(dpr, dpr);
+      }
+      function getColors() {
+        const styles = getComputedStyle(document.documentElement);
+        return {
+          bg: styles.getPropertyValue('--bg').trim() || '#fff',
+          dot: styles.getPropertyValue('--primary').trim() || '#3170DE',
+          line: styles.getPropertyValue('--secondary').trim() || '#AED4FF',
+          dotAlt: styles.getPropertyValue('--text').trim() || '#000',
+        };
+      }
+      function makePoints() {
+        points = [];
+        for (let i = 0; i < POINTS; ++i) {
+          points.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            r: 2.5 + Math.random() * 2.5,
+          });
+        }
+      }
+      function animate() {
+        ctx.clearRect(0,0,width,height);
+        const {dot, line, dotAlt} = getColors();
+        // Draw lines
+        for (let i = 0; i < points.length; ++i) {
+          for (let j = i+1; j < points.length; ++j) {
+            const dx = points[i].x - points[j].x;
+            const dy = points[i].y - points[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < MAX_DIST) {
+              ctx.save();
+              ctx.globalAlpha = 0.32 * (1 - dist / MAX_DIST) + 0.10;
+              ctx.strokeStyle = line;
+              ctx.lineWidth = 1.5;
+              ctx.shadowColor = line;
+              ctx.shadowBlur = 6;
+              ctx.beginPath();
+              ctx.moveTo(points[i].x, points[i].y);
+              ctx.lineTo(points[j].x, points[j].y);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        // Draw points
+        for (let p of points) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+          ctx.fillStyle = dot;
+          ctx.shadowColor = dotAlt;
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+        // Move points
+        for (let p of points) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+        }
+        requestAnimationFrame(animate);
+      }
+      function setTheme(newTheme) {
+        theme = newTheme;
+      }
+      function init() {
+        resize();
+        makePoints();
+        animate();
+      }
+      window.addEventListener('resize', () => {
+        resize();
+        makePoints();
+      });
+      // Place canvas behind everything
+      canvas.style.position = 'fixed';
+      canvas.style.left = '0';
+      canvas.style.top = '0';
+      canvas.style.zIndex = '-1';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
+      // Expose theme setter for toggle
+      window.bgAnim = { setTheme };
+      init();
+    })();
   </script>
 </body>
 </html>
