@@ -3,501 +3,500 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ashraf Un Noor | Portfolio v3.1</title>
+  <title>Ashraf Un Noor | Portfolio v4.0</title>
 
   <!-- Fonts & Icons -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
   <style>
     /* — Theme Variables — */
     :root {
-      --bg: #fff;
-      --text: #000;
-      --primary: #3170DE;
-      --secondary: #AED4FF;
-      --nav-bg: #fff;
-      --nav-border: #ddd;
-      --btn-bg: #3170DE;
-      --btn-text: #fff;
+      --bg: #f0f2f5;
+      --text: #333;
+      --primary: #0056b3;
+      --secondary: #007bff;
+      --nav-bg: rgba(255, 255, 255, 0.7);
+      --card-bg: #fff;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-color: #ddd;
     }
     [data-theme="dark"] {
-      --bg: #000;
-      --text: #fff;
-      --primary: #FFA940;
-      --secondary: #e4ac5d;
-      --nav-bg: #111;
-      --nav-border: #333;
-      --btn-bg: #333;
-      --btn-text: #fff;
+      --bg: #121212;
+      --text: #e0e0e0;
+      --primary: #bb86fc;
+      --secondary: #03dac6;
+      --nav-bg: rgba(24, 24, 24, 0.7);
+      --card-bg: #1e1e1e;
+      --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+      --border-color: #333;
     }
 
     /* — Reset & Base — */
     * { box-sizing: border-box; margin: 0; padding: 0 }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      scroll-behavior: smooth;
-      line-height: 1.6;
+      line-height: 1.7;
+      transition: background-color 0.3s, color 0.3s;
     }
     a {
       color: var(--primary);
       text-decoration: none;
+      transition: color 0.3s;
     }
-    a:hover { text-decoration: underline; }
+    a:hover { color: var(--secondary); }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* — Animated Background — */
+    #animated-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
 
     /* — Navigation — */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      background: var(--nav-bg);
-      border-bottom: 1px solid var(--nav-border);
       padding: 1rem 2rem;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      z-index: 100;
+      align-items: center;
+      gap: 1.5rem;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s, border-color 0.3s;
     }
-  /* ensures buttons don’t shrink on mobile */
-  .nav-btn {
-      flex: 0 0 auto;
-      padding: 0.5rem 1rem;
-      background: var(--btn-bg);
-      color: var(--btn-text);
+    .nav-link {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease-out;
+    }
+    .nav-link:hover::after { width: 100%; }
+    #theme-toggle {
+      background: none;
       border: none;
-      border-radius: 4px;
-      font-weight: 700;
+      color: var(--text);
+      font-size: 1.5rem;
       cursor: pointer;
+      margin-left: 1rem;
     }
-    .nav-btn:hover {
-      background: #295bb2;
-    } 
 
-  /* — Mobile: allow horizontal scroll and left-align — */
-  @media (max-width: 600px) {
-    nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 0.5rem;
+    @media (max-width: 768px) {
+      nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 1rem;
       }
-   }
+      .nav-link { flex-shrink: 0; }
+    }
 
-    /* — Section Base — */
-    section {
-      max-width: 900px;
+    /* — Layout & Sections — */
+    .container {
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 8rem 2rem 4rem;
+      padding: 0 2rem;
+    }
+    section {
+      padding: 6rem 0;
       opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.6s ease-out;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     section.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    #about { padding-top: 10rem; }
-
-    /* — Headings — */
-    h1, h2, h3 {
-      font-weight: 300;
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
     }
-    h1 { font-size: 3rem; }
-    h2 {
-      font-size: 2rem;
-      border-bottom: 3px solid var(--secondary);
-      display: inline-block;
-      margin-bottom: 1rem;
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
     }
-    h3 { font-size: 1.5rem; }
 
-    /* — About — */
-    .about-flex {
-      display: flex; flex-wrap: wrap;
-      align-items: flex-start; gap: 2rem;
+    /* — About Section — */
+    #about { padding-top: 10rem; }
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
     }
-    .about-left { flex: 1; min-width: 300px; }
-    .about-right { flex: 0 0 200px; min-width: 210px; }
+    .about-text { flex: 2; }
+    .about-text h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .about-text h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .about-text p { margin-bottom: 1rem; }
+    .about-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .hero-img {
-      width: 180px; height: 180px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
       object-fit: cover;
+      border: 5px solid var(--primary);
+      box-shadow: 0 0 25px rgba(var(--primary), 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .about-content { flex-direction: column; text-align: center; }
+      .about-text h1 { font-size: 2.5rem; }
+      .about-text h2 { font-size: 1.5rem; }
+    }
+
+    /* — Projects Section — */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+    .project-card h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .project-card p {
+      flex-grow: 1;
       margin-bottom: 1.5rem;
-      border: 3px solid var(--primary);
     }
-    .about-right ul { list-style: none; margin-top: 1rem; }
-    .about-right li { margin-bottom: 0.5rem; font-size: 1rem; }
-    .about-right i { margin-right: 0.5rem; }
-
-    /* — Certifications — */
-    #certifications {
-      display: flex; flex-wrap: wrap;
-      gap: 2rem; align-items: flex-start;
-      padding-top: 4rem; /* tightened per request */
+    .project-card a {
+      font-weight: 500;
+      display: inline-block;
     }
-    .cert-list {
-      flex: 1; min-width: fit-content;
-    }
-    .cert-list ul {
-      list-style: disc inside;
-      margin-top: 1rem;
-    }
-    .slideshow-container {
-      flex: 1; min-width: 300px;
-      position: relative;
-    }
-    .cert-slide {
-      display: none;
-      width: 100%;
-      border-radius: 4px;
-    }
-    .cert-prev, .cert-next {
-      cursor: pointer;
-      position: absolute; top: 50%;
-      transform: translateY(-50%);
-      padding: 0.5rem;
-      color: #fff; background: rgba(0,0,0,0.5);
-      border-radius: 3px; font-size: 1.5rem;
-    }
-    .cert-prev { left: 0.5rem; }
-    .cert-next { right: 0.5rem; }
-
-    /* — Projects — */
-    #projects { padding-top: 2rem; }
-    .project-flex {
-      display: flex; flex-wrap: wrap;
-      align-items: flex-start; gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    .project-desc { flex: 1; min-width: 250px; }
     .dash-slideshow {
-      flex: 1; min-width: 300px;
+      margin-top: 1rem;
       position: relative;
     }
-    .dash-slide {
-      display: none; width: 100%; border-radius: 4px;
-    }
+    .dash-slide { display: none; width: 100%; border-radius: 8px; }
     .dash-prev, .dash-next {
       cursor: pointer;
       position: absolute; top: 50%;
       transform: translateY(-50%);
       padding: 0.5rem;
       color: #fff; background: rgba(0,0,0,0.5);
-      border-radius: 3px; font-size: 1.5rem;
+      border-radius: 50%; font-size: 1.2rem;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
     }
     .dash-prev { left: 0.5rem; }
     .dash-next { right: 0.5rem; }
 
-    /* — Skills — */
-    #skills {
-      padding-top: 2rem;
-      margin-bottom: 12rem; /* extra breathing room */
+    /* — Skills Section — */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
     }
-    .skills-flex {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    .skill-category {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
     }
-    .skill-cat {
-    flex: 1;
-    min-width: 150px;
-    padding: 0.25rem;
-    position: relative;
+    .skill-category h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
     }
-    .skill-cat h3 {
-    font-style: italic; margin-bottom: 0.5rem;
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
     }
-    .skill-list {
-    display: none;
-    position: absolute;
-    top: 100%; 
-    left: 0;
-    background: none; 
-    z-index: 10;
-    margin-top: 0.25rem;
-    list-style: disc outside;
-    padding-left: 1rem;
-    line-height: 1.4;
+    .skill-pill {
+      background: var(--secondary);
+      color: var(--bg);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: transform 0.2s, background-color 0.2s;
     }
-    .skill-list li {
-        white-space: nowrap;       
-    }
-    .skill-cat:hover .skill-list {
-    display: block;
+    .skill-pill:hover {
+      transform: scale(1.1);
+      background: var(--primary);
     }
 
-    /* — Responsive — */
-    @media (max-width: 600px) {
-      #certifications, .project-flex, .skills-flex, .about-flex {
-        flex-direction: column; align-items: center;
-      }
-      .about-right, .cert-list, .slideshow-container,
-      .dash-slideshow, .skill-cat {
-        width: 100%; text-align: center;
-      }
+    /* — Certifications Section — */
+    .certifications-content {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
     }
+    .cert-list { flex: 1; }
+    .cert-list ul {
+      list-style: none;
+    }
+    .cert-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 500;
+    }
+    .cert-list li i {
+      color: var(--primary);
+      margin-right: 1rem;
+    }
+    .slideshow-container {
+      flex: 1;
+      position: relative;
+      max-width: 500px;
+      box-shadow: var(--card-shadow);
+      border-radius: 15px;
+    }
+    .cert-slide {
+      display: none;
+      width: 100%;
+      border-radius: 15px;
+    }
+    .cert-prev, .cert-next {
+      cursor: pointer;
+      position: absolute; top: 50%;
+      transform: translateY(-50%);
+      padding: 0.75rem;
+      color: #fff; background: rgba(0,0,0,0.6);
+      border-radius: 50%; font-size: 1.5rem;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cert-prev { left: 1rem; }
+    .cert-next { right: 1rem; }
+
+    @media (max-width: 900px) {
+      .certifications-content { flex-direction: column; }
+    }
+
+    /* — Contact Section — */
+    #contact { text-align: center; }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .contact-links a {
+      color: var(--text);
+      font-size: 2.5rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .contact-links a:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
   </style>
 </head>
 <body>
   <canvas id="animated-bg"></canvas>
+
   <!-- Navigation -->
   <nav>
-    <button id="theme-toggle" class="nav-btn" aria-label="Toggle theme">🌙</button>
-    <button class="nav-btn" onclick="location.href='#about'">About</button>
-    <button class="nav-btn" onclick="location.href='#findme'">Find Me On</button>
-    <button class="nav-btn" onclick="location.href='#certifications'">Certifications</button>
-    <button class="nav-btn" onclick="location.href='#projects'">Projects</button>
-    <button class="nav-btn" onclick="location.href='#skills'">Skills</button>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#certifications" class="nav-link">Certifications</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
   </nav>
 
-  <!-- About -->
-  <section id="about">
-    <div class="about-flex">
-      <div class="about-left">
-        <img src="profile.jpg" alt="Ashraf Un Noor" class="hero-img"/>
-        <h1>Ashraf Un Noor</h1>
-        <h2>Business & Data Analyst</h2>
-        <p>
-          I'm a recent Bachelor of Business Administration (BBA) graduate from Memorial University of Newfoundland with a 
-          passion for uncovering patterns, insights, and stories within data. I enjoy turning complex data into clear, actionable insights.
-        </p>
-        <br>
-        <p>
-          Data tells a story — and I love being the narrator. I'm comfortable diving into messy datasets to analyze and visualize, 
-          helping uncover meaningful, actionable narratives.
-        </p> 
-        <br>
-        <p>
-          Driven by a passion for continuous learning, I've recently begun exploring advanced data science and 
-          am excited to deepen my skills in this dynamic, rapidly evolving field.
-        </p>
+  <main class="container">
+    <!-- About -->
+    <section id="about">
+      <div class="about-content">
+        <div class="about-text">
+          <h1>Ashraf Un Noor</h1>
+          <h2>Business & Data Analyst</h2>
+          <p>
+            Recent BBA graduate with a passion for uncovering the stories hidden within data. I transform complex datasets into clear, actionable insights that drive business decisions.
+          </p>
+          <p>
+            Driven by a passion for continuous learning, I've recently begun exploring advanced data science and am excited to deepen my skills in this dynamic, rapidly evolving field.
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="profile.jpg" alt="Ashraf Un Noor" class="hero-img"/>
+        </div>
       </div>
-      <div class="about-right" id="findme">
-        <h3>Find Me On</h3>
-        <ul>
-          <li><a href="https://www.linkedin.com/in/ashraf98noor/" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a></li>
-          <li><a href="https://github.com/Ashraf98Noor" target="_blank"><i class="fab fa-github"></i>GitHub</a></li>
-          <li><a href="https://public.tableau.com/app/profile/ashraf.un.noor/vizzes" target="_blank"><i class="fas fa-chart-bar"></i>Tableau</a></li>
-          <li><a href="mailto:ashraf98noor@gmail.com"><i class="fas fa-envelope"></i>ashraf98noor@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Certifications -->
-  <section id="certifications">
-    <div class="cert-list">
-      <h2>Certifications</h2>
-      <ul>
-        <li>Google Data Analytics Professional Certificate</li>
-        <li>Google Advanced Data Analytics Professional Certificate</li>
-        <li>Google BI Analyst Professional Certificate</li>
-        <li>Google AI Essentials Specialization</li>
-        <li>Google Prompting Essentials Specialization</li>
-        <li>Google Agile Essentials Certificate</li>
-        <li>Asana Workflow Specialist Certificate</li>
-      </ul>
-    </div>
-    <div class="slideshow-container">
-      <img class="cert-slide" src="Cert1.png" alt="Certification 1"/>
-      <img class="cert-slide" src="Cert10.png" alt="Certification 10"/>
-      <img class="cert-slide" src="Cert2.png" alt="Certification 2"/>
-      <img class="cert-slide" src="Cert8.png" alt="Certification 8"/>
-      <img class="cert-slide" src="Cert9.png" alt="Certification 9"/>
-      <img class="cert-slide" src="Cert3.png" alt="Certification 3"/>
-      <img class="cert-slide" src="Cert7.png" alt="Certification 7"/>
-      <span class="cert-prev" onclick="plusCertifications(-1)">&#10094;</span>
-      <span class="cert-next" onclick="plusCertifications(1)">&#10095;</span>
-    </div>
-  </section>
+    <!-- Projects -->
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Cyclistic Bike Share Analysis</h3>
+          <p>Google Data Analytics Capstone: Executed complex SQL queries and statistical techniques in BigQuery to analyze large datasets, delivering strategic recommendations to increase annual memberships.</p>
+          <a href="https://github.com/Ashraf98Noor/Cyclistic-bike-share-analysis" target="_blank">View on GitHub &rarr;</a>
+        </div>
+        <div class="project-card">
+          <h3>BI Dashboards in Tableau</h3>
+          <p>Developed multiple interactive dashboards in Tableau to visualize KPIs and provide actionable insights for business decision-making.</p>
+          <div class="dash-slideshow">
+            <img class="dash-slide" src="dashboard1.png" alt="HR Dashboard"/>
+            <img class="dash-slide" src="dashboard2.png" alt="Sales Dashboard"/>
+            <img class="dash-slide" src="dashboard3.png" alt="Traffic Dashboard"/>
+            <span class="dash-prev" onclick="plusDash(-1)">&#10094;</span>
+            <span class="dash-next" onclick="plusDash(1)">&#10095;</span>
+          </div>
+          <a href="https://public.tableau.com/app/profile/ashraf.un.noor/vizzes" target="_blank">View on Tableau &rarr;</a>
+        </div>
+        <div class="project-card">
+          <h3>Salifort Motors Retention Predictor</h3>
+          <p>Google Advanced Data Analytics Capstone: Deployed a logistic regression model (82% accuracy) to predict employee attrition, performing EDA and feature engineering to identify key drivers of turnover.</p>
+          <a href="https://github.com/Ashraf98Noor/Salifort-Motors-Employee-Retention-Predictor" target="_blank">View on GitHub &rarr;</a>
+        </div>
+        <div class="project-card">
+          <h3>UCL 24/25 Stats Dashboard</h3>
+          <p>A single-page React app for Champions League data, built with AI-augmented development tools (ChatGPT, Cursor AI) and hosted on GitHub Pages to showcase modern frontend and data visualization skills.</p>
+          <a href="https://github.com/Ashraf98Noor/UCL25" target="_blank">View on GitHub &rarr;</a>
+        </div>
+        <div class="project-card">
+          <h3>Invistico Airlines Satisfaction Prediction</h3>
+          <p>End-to-end ML project to forecast passenger satisfaction. Applied multiple models, with Random Forest achieving 94.7% accuracy, to deliver data-driven service improvement recommendations.</p>
+          <a href="https://github.com/Ashraf98Noor/Invistico-Airlines-Machine-Learning-Models" target="_blank">View on GitHub &rarr;</a>
+        </div>
+        <div class="project-card">
+          <h3>Synthetic Data Generator</h3>
+          <p>A lightweight Python/pandas tool that generates fully synthetic, customizable datasets on demand, exporting ready-to-use CSVs for data analysis and testing.</p>
+          <a href="https://github.com/Ashraf98Noor/Synthetic-Data-Generator" target="_blank">View on GitHub &rarr;</a>
+        </div>
+      </div>
+    </section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Projects</h2>
+    <!-- Skills -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>Data Analytics</h3>
+          <div class="skills-list">
+            <span class="skill-pill">SQL</span><span class="skill-pill">Python</span><span class="skill-pill">R</span><span class="skill-pill">Spreadsheets</span><span class="skill-pill">EDA</span><span class="skill-pill">Statistics</span><span class="skill-pill">Regression</span><span class="skill-pill">Hypothesis Testing</span><span class="skill-pill">Machine Learning</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Business Intelligence</h3>
+          <div class="skills-list">
+            <span class="skill-pill">Tableau</span><span class="skill-pill">Power BI</span><span class="skill-pill">Data Modeling</span><span class="skill-pill">ETL</span><span class="skill-pill">Data Storytelling</span><span class="skill-pill">DB Optimization</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Tools & Tech</h3>
+          <div class="skills-list">
+            <span class="skill-pill">Git & GitHub</span><span class="skill-pill">Jupyter</span><span class="skill-pill">RStudio</span><span class="skill-pill">Google Cloud</span><span class="skill-pill">BigQuery</span><span class="skill-pill">LLM Tuning</span><span class="skill-pill">Prompt Engineering</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>Cyclistic Bike Share Members Analysis Google Data Analytics Capstone</h3>
-        <p>
-          Developed and executed complex SQL queries and percentile calculations to extract, transform, and analyze large datasets, implemented user sizing and sampling through various statistical techniques in BigQuery, visualized insights in Tableau, and delivered strategic recommendations, focusing on customer journey analysis and insights to drive loyalty, increase engagement rates and to increase annual memberships. 
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/Cyclistic-bike-share-analysis" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
+    <!-- Certifications -->
+    <section id="certifications">
+      <h2 class="section-title">Certifications</h2>
+      <div class="certifications-content">
+        <div class="slideshow-container">
+          <img class="cert-slide" src="Cert1.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert2.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert3.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert4.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert5.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert6.pdf" alt="Certification"/>
+          <img class="cert-slide" src="Cert8.png" alt="Certification"/>
+          <img class="cert-slide" src="Cert9.png" alt="Certification"/>
+          <span class="cert-prev" onclick="plusCertifications(-1)">&#10094;</span>
+          <span class="cert-next" onclick="plusCertifications(1)">&#10095;</span>
+        </div>
+        <div class="cert-list">
+          <ul>
+            <li><i class="fas fa-award"></i>Google Data Analytics Professional</li>
+            <li><i class="fas fa-award"></i>Google Advanced Data Analytics Professional</li>
+            <li><i class="fas fa-award"></i>Google Business Intelligence Professional</li>
+            <li><i class="fas fa-award"></i>Google AI Essentials</li>
+            <li><i class="fas fa-award"></i>Google Prompting Essentials</li>
+            <li><i class="fas fa-award"></i>Google Agile Essentials</li>
+            <li><i class="fas fa-award"></i>Asana Workflow Specialist</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>BI Dashboards in Tableau</h3>
-        <p>
-          Developed multiple interactive dashboards using Tableau as part of the Google Business Intelligence Professional Certification and personal projects. The dashboards focused on data visualization and reporting on KPIs, providing actionable insights for business decision-making.
-        </p>
-        <p>
-          <a href="https://public.tableau.com/app/profile/ashraf.un.noor/vizzes" target="_blank">
-            View on Tableau &rarr;
-          </a>
-        </p>
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-title">Get In Touch</h2>
+      <p>I'm always open to new opportunities and collaborations.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/ashraf98noor/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Ashraf98Noor" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://public.tableau.com/app/profile/ashraf.un.noor/vizzes" target="_blank" aria-label="Tableau"><i class="fas fa-chart-bar"></i></a>
+        <a href="mailto:ashraf98noor@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
       </div>
-      
-      <div class="dash-slideshow">
-        <img class="dash-slide" src="dashboard4.png" alt="HR Dashboard"/>
-        <img class="dash-slide" src="dashboard5.png" alt="Sales Dashboard"/>
-        <img class="dash-slide" src="dashboard7.png" alt="Minnesota Traffic Dashboard"/>
-        <img class="dash-slide" src="dashboard6.png" alt="Product Line Sales Dashboard"/>
-        <span class="dash-prev" onclick="plusDash(-1)">&#10094;</span>
-        <span class="dash-next" onclick="plusDash(1)">&#10095;</span>
-      </div>
-    </div>
+    </section>
+  </main>
 
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>Synthetic Data Generator - Personal project</h3>
-        <p>
-          Lightweight Python/pandas tool that generates fully synthetic datasets on demand. With inline docs, Users define field templates and can embed custom business logic to generate their curated dataset, then export ready-to-use CSVs. 
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/Synthetic-Data-Generator" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
-      </div>
-    </div>
-
-     <div class="project-flex">
-      <div class="project-desc">
-        <h3>Salifort Motors Employee Retention Predictor - Google Advanced Data Analytics Capstone</h3>
-        <p>
-          Developed and deployed a logistic regression model to predict employee attrition using real-world HR data (accuracy: 82%, weighted F1: 0.80). Performed comprehensive EDA, feature engineering, and model evaluation to identify actionable drivers of turnover. Presented key findings and recommendations to stakeholders using clear visuals and executive summaries. 
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/Salifort-Motors-Employee-Retention-Predictor" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>Invistico Airlines Passenger Satisfaction Prediction</h3>
-        <p>
-          End-to-end machine learning project using airline passenger data to forecast customer satisfaction. Applied logistic regression, decision tree, random forest, and XGBoost models; Random Forest achieved highest accuracy (94.7%). Delivered interpretable analytics, visualizations, and recommendations to support data-driven service improvements. 
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/Invistico-Airlines-Machine-Learning-Models" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>Waze User Churn Prediction Model</h3>
-        <p>
-          Built and analyzed a classification model on Waze app user data to predict monthly churn risk. Performed in-depth data exploration and visualization, engineered key features, and provided business recommendations to improve user retention through data-driven insights. 
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/Waze-User-Churn-Prediction" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <div class="project-flex">
-      <div class="project-desc">
-        <h3>UCL 24/25 Stats Dashboard</h3>
-        <p>
-          The UCL 24/25 Statistics Dashboard is a single-page React application that brings Champions League player performance data to life through dynamic filtering, sortable columns, and expandable detail panels. By leveraging AI tools—ChatGPT and Cursor AI—for rapid prototyping, code refinement, and parsing logic optimization, I streamlined development while using Tailwind CSS for a responsive design, and hosted the result on GitHub Pages to demonstrate my proficiency in AI-augmented frontend development and data visualization.
-        </p>
-        <p>
-          <a href="https://github.com/Ashraf98Noor/UCL25" target="_blank">
-            View on GitHub &rarr;
-          </a>
-        </p>
-      </div>
-    </div>
-    
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-flex">
-      <div class="skill-cat">
-        <h3>Data Analytics</h3>
-        <ul class="skill-list">
-          <li>SQL, Python, R</li>
-          <li>Spreadsheets</li>
-          <li>Exploratory Data Analysis</li>
-          <li>Statistical Analysis</li>
-          <li>Regression Modeling</li>
-          <li>Hypothesis Testing</li>
-          <li>Supervised Maachine Learning</li>
-          <li>Unsupervised Machine Learning</li>
-        </ul>
-      </div>
-      <div class="skill-cat">
-        <h3>Business Intelligence</h3>
-        <ul class="skill-list">
-          <li>Tableau</li>
-          <li>Power BI</li>
-          <li>Data Modeling</li>
-          <li>Pipelines & ETL</li>
-          <li>Data Storytelling</li>
-          <li>Database Optimization</li>
-        </ul>
-      </div>
-      <div class="skill-cat">
-        <h3>Project Management</h3>
-        <ul class="skill-list">
-          <li>Agile & Scrum</li>
-          <li>Asana Workflow</li>
-          <li>Risk Management</li>
-          <li>Strategy Operations</li>
-          <li>Business Documentation</li>
-        </ul>
-      </div>
-      <div class="skill-cat">
-        <h3>Stack</h3>
-        <ul class="skill-list">
-          <li>Asana</li>
-          <li>RStudio</li>
-          <li>Git & GitHub</li>
-          <li>Jupyter Notebook</li>
-          <li>Google AI Studio</li>
-          <li>Google Workspace & Microsoft Office</li>
-          <li>Google Cloud - BigQuery, Dataflow, Looker & Colab</li>
-          <li>LLM Tuning & Prompt Engineering</li>
-        </ul>
-      </div>
-      <div class="skill-cat">
-        <h3>Soft Skills</h3>
-        <ul class="skill-list">
-          <li>Problem Solving</li>
-          <li>Communication</li>
-          <li>Analytical Thinking</li>
-          <li>Collaboration & Leadership</li>
-          <li>Experiment Design and Analysis</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- — Scripts — -->
   <script>
-    // Reveal sections on scroll
+    // — Reveal sections on scroll —
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -508,7 +507,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('section').forEach(sec => observer.observe(sec));
 
-    // Certifications slideshow
+    // — Slideshows —
     let certIndex = 1;
     function showCertifications(n) {
       const slides = document.getElementsByClassName("cert-slide");
@@ -520,10 +519,10 @@
     function plusCertifications(n) { showCertifications(certIndex += n); }
     showCertifications(certIndex);
 
-    // Dashboards slideshow
     let dashIndex = 1;
     function showDash(n) {
       const slides = document.getElementsByClassName("dash-slide");
+      if (slides.length === 0) return;
       if (n > slides.length) dashIndex = 1;
       if (n < 1) dashIndex = slides.length;
       for (let s of slides) s.style.display = "none";
@@ -532,80 +531,79 @@
     function plusDash(n) { showDash(dashIndex += n); }
     showDash(dashIndex);
 
-    // Theme toggle
+    // — Theme Toggle —
     const toggle = document.getElementById('theme-toggle');
     const root = document.documentElement;
-    const saved = localStorage.getItem('theme');
-    const defaultTheme = saved || 'light';
-
-    root.setAttribute('data-theme', defaultTheme);
-    toggle.textContent = defaultTheme === 'dark' ? '☀️' : '🌙';
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    root.setAttribute('data-theme', savedTheme);
+    toggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
     toggle.addEventListener('click', () => {
       const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      // Notify background animation of theme change
+      if(window.bgAnim) window.bgAnim.setTheme(newTheme);
     });
-     // Animated background: floating data points and lines
-     (function() {
+
+    // — Animated Background —
+    (function() {
       const canvas = document.getElementById('animated-bg');
       if (!canvas) return;
       let ctx = canvas.getContext('2d');
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      let dpr = window.devicePixelRatio || 1;
-      let points = [];
-      const POINTS = 48;
-      const MAX_DIST = 140;
-      let theme = root.getAttribute('data-theme') || 'light';
+      let width, height, dpr, points = [];
+      const POINTS = 50;
+      const MAX_DIST = 120;
+      
+      function getColors() {
+        const styles = getComputedStyle(document.documentElement);
+        return {
+          bg: styles.getPropertyValue('--bg').trim(),
+          dot: styles.getPropertyValue('--primary').trim(),
+          line: styles.getPropertyValue('--secondary').trim(),
+        };
+      }
+
       function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
+        dpr = window.devicePixelRatio || 1;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         canvas.style.width = width + 'px';
         canvas.style.height = height + 'px';
-        ctx.setTransform(1,0,0,1,0,0);
         ctx.scale(dpr, dpr);
       }
-      function getColors() {
-        const styles = getComputedStyle(document.documentElement);
-        return {
-          bg: styles.getPropertyValue('--bg').trim() || '#fff',
-          dot: styles.getPropertyValue('--primary').trim() || '#3170DE',
-          line: styles.getPropertyValue('--secondary').trim() || '#AED4FF',
-          dotAlt: styles.getPropertyValue('--text').trim() || '#000',
-        };
-      }
+
       function makePoints() {
         points = [];
         for (let i = 0; i < POINTS; ++i) {
           points.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            r: 2.5 + Math.random() * 2.5,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: 1.5 + Math.random() * 2,
           });
         }
       }
+
       function animate() {
-        ctx.clearRect(0,0,width,height);
-        const {dot, line, dotAlt} = getColors();
-        // Draw lines
+        ctx.clearRect(0, 0, width, height);
+        const { dot, line } = getColors();
+
         for (let i = 0; i < points.length; ++i) {
-          for (let j = i+1; j < points.length; ++j) {
+          for (let j = i + 1; j < points.length; ++j) {
             const dx = points[i].x - points[j].x;
             const dy = points[i].y - points[j].y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
+            const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < MAX_DIST) {
               ctx.save();
-              ctx.globalAlpha = 0.32 * (1 - dist / MAX_DIST) + 0.10;
+              ctx.globalAlpha = 0.5 * (1 - dist / MAX_DIST);
               ctx.strokeStyle = line;
-              ctx.lineWidth = 1.5;
-              ctx.shadowColor = line;
-              ctx.shadowBlur = 6;
+              ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(points[i].x, points[i].y);
               ctx.lineTo(points[j].x, points[j].y);
@@ -614,19 +612,13 @@
             }
           }
         }
-        ctx.globalAlpha = 1;
-        // Draw points
+
         for (let p of points) {
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+          ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
           ctx.fillStyle = dot;
-          ctx.shadowColor = dotAlt;
-          ctx.shadowBlur = 6;
           ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-        // Move points
-        for (let p of points) {
+          
           p.x += p.vx;
           p.y += p.vy;
           if (p.x < 0 || p.x > width) p.vx *= -1;
@@ -634,28 +626,21 @@
         }
         requestAnimationFrame(animate);
       }
-      function setTheme(newTheme) {
-        theme = newTheme;
-      }
+
       function init() {
         resize();
         makePoints();
         animate();
+        window.addEventListener('resize', () => {
+          resize();
+          makePoints();
+        });
       }
-      window.addEventListener('resize', () => {
-        resize();
-        makePoints();
-      });
-      // Place canvas behind everything
-      canvas.style.position = 'fixed';
-      canvas.style.left = '0';
-      canvas.style.top = '0';
-      canvas.style.zIndex = '-1';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.width = '100vw';
-      canvas.style.height = '100vh';
+      
       // Expose theme setter for toggle
-      window.bgAnim = { setTheme };
+      window.bgAnim = { 
+        setTheme: () => { /* The getColors() call in animate() handles this automatically */ }
+      };
       init();
     })();
   </script>
